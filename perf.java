@@ -36,76 +36,76 @@ public class Perft
     static int minDistance = 2147483647;
     static int[] bestRoute = new int[NUMBER_OF_CITIES];
 
-    static void FindShortestPath(int[] currentRoute, boolean[] visited, int level, int lastIndex, int currentDistance) 
+	static void FindShortestPath(int[] currentRoute, boolean[] visited, int level, int lastIndex, int currentDistance) 
 	{
-        if (currentDistance > minDistance) 
+		if (currentDistance > minDistance) 
 		{
-            return;
-        }
-
-    if (level == NUMBER_OF_CITIES) 
+	        	return;
+	        }
+	
+	    	if (level == NUMBER_OF_CITIES) 
 		{
-            currentDistance += distanceMatrix[lastIndex][currentRoute[0]]; // return to start
-      if (currentDistance < minDistance) 
+	            	currentDistance += distanceMatrix[lastIndex][currentRoute[0]]; // return to start
+	      		if (currentDistance < minDistance) 
 			{
-                minDistance = currentDistance;
-                for (int i = 0; i < NUMBER_OF_CITIES; i++) 
+	                	minDistance = currentDistance;
+	                	for (int i = 0; i < NUMBER_OF_CITIES; i++) 
 				{
-                    bestRoute[i] = currentRoute[i];
-                }
-            }
-            return;
-        }
-
-    for (int i = 0; i < NUMBER_OF_CITIES; i++) 
+	                    		bestRoute[i] = currentRoute[i];
+	                	}
+	            	}
+	            	return;
+	        }
+	
+	    	for (int i = 0; i < NUMBER_OF_CITIES; i++) 
 		{
-            if (!visited[i]) 
+	            	if (!visited[i]) 
 			{
-                visited[i] = true;
-                currentRoute[level] = i;
-                nodes++;
+	                	visited[i] = true;
+	                	currentRoute[level] = i;
+	                	nodes++;
+	
+	                	int newDistance = currentDistance + distanceMatrix[lastIndex][i];
+	                	FindShortestPath(currentRoute, visited, level + 1, i, newDistance);
+	
+	                	visited[i] = false;
+	            	}
+	        }
+	}
 
-                int newDistance = currentDistance + distanceMatrix[lastIndex][i];
-                FindShortestPath(currentRoute, visited, level + 1, i, newDistance);
-
-                visited[i] = false;
-            }
-        }
-    }
-
-  static void RunFullRecursive() 
+	static void RunFullRecursive() 
 	{
-
-    long start = System.currentTimeMillis();
-
-    int[] currentRoute = new int[NUMBER_OF_CITIES];
-    boolean[] visited = new boolean[NUMBER_OF_CITIES];
-
-    for (int i = 0; i < NUMBER_OF_CITIES; i++) 
+	
+	    	long start = System.currentTimeMillis();
+	
+	    	int[] currentRoute = new int[NUMBER_OF_CITIES];
+	    	boolean[] visited = new boolean[NUMBER_OF_CITIES];
+	
+	    	for (int i = 0; i < NUMBER_OF_CITIES; i++) 
 		{
-            currentRoute[i] = 0;
-            visited[i] = false;
-    }
-
-    currentRoute[0] = 0;
-    visited[0] = true;
-
-    FindShortestPath(currentRoute, visited, 1, 0, 0);
-
-    System.out.println(minDistance);
-    for (int i = 0; i < NUMBER_OF_CITIES; i++) 
+	        	currentRoute[i] = 0;
+	            	visited[i] = false;
+	    	}
+	
+	    	currentRoute[0] = 0;
+	    	visited[0] = true;
+	
+	    	FindShortestPath(currentRoute, visited, 1, 0, 0);
+	
+	    	System.out.println(minDistance);
+	    	for (int i = 0; i < NUMBER_OF_CITIES; i++) 
 		{
-        System.out.println(bestRoute[i]);
-    }
+	        	System.out.println(bestRoute[i]);
+	    	}
+	
+	        long end = System.currentTimeMillis();
+	
+	        System.out.println(nodes);
+	        System.out.println(end - start);
+	  }
 
-        long end = System.currentTimeMillis();
-
-        System.out.println(nodes);
-        System.out.println(end - start);
-  }
-
-    public static void main(String[] args) 
+	public static void main(String[] args) 
 	{
-        RunFullRecursive();
-    }
+        	RunFullRecursive();
+    	}
 }
