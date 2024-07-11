@@ -48,7 +48,7 @@ FindShortestPath :: proc(route_data:^RouteData, level:int, lastIndex:int, curren
     if level == NUMBER_OF_CITIES
     {
         final_distance := currentDistance + distanceMatrix[lastIndex][route_data.current_route[0]];
-        if (final_distance < minDistance)
+        if final_distance < minDistance
         {
             minDistance = final_distance;
 			for i := 0; i < NUMBER_OF_CITIES; i += 1
