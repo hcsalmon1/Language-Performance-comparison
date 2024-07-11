@@ -39,8 +39,7 @@ var distanceMatrix = [NUMBER_OF_CITIES][NUMBER_OF_CITIES]int{
 	{91, 74, 8, 33, 8, 24, 18, 6, 11, 86, 93, 63, 20, 30, 88, 93, 57, 59, 59, 96},
 }
 
-func main() 
-{
+func main() {
 
 	RunFullRecursive()
 	fmt.Println("Press Enter to exit...")
