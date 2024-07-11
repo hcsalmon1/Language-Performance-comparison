@@ -33,34 +33,39 @@ static int bestRoute[NUMBER_OF_CITIES];
 
 void FindShortestPath(int *currentRoute, bool *visited, int level, int lastIndex, int currentDistance)
 {
+    //if the distance so far can't beat the best score then return and stop searching this route
     if (currentDistance > minDistance)
     {
         return;
     }
 
+    //if at final location
     if (level == NUMBER_OF_CITIES)
     {
+        //return to the starting point and add that distance
         currentDistance += distanceMatrix[lastIndex][currentRoute[0]];
+        //if this route was the best route so far
         if (currentDistance < minDistance)
         {
-            minDistance = currentDistance;
-            memcpy(bestRoute, currentRoute, NUMBER_OF_CITIES * sizeof(int));
+            minDistance = currentDistance; //save the distance
+            memcpy(bestRoute, currentRoute, NUMBER_OF_CITIES * sizeof(int)); //save the route
         }
         return;
     }
 
-    for (int i = 0; i < NUMBER_OF_CITIES; i++)
+    //if not at final location
+    for (int i = 0; i < NUMBER_OF_CITIES; i++) //loop through all locations
     {
-        if (visited[i] == false)
+        if (visited[i] == false) //if this location hasn't been searched yet
         {
-            visited[i] = true;
-            currentRoute[level] = i;
-            nodes++;
+            visited[i] = true; //set is as searched
+            currentRoute[level] = i; //add this to the current route
+            nodes++; 
 
-            int newDistance = currentDistance + distanceMatrix[lastIndex][i];
-            FindShortestPath(currentRoute, visited, level + 1, i, newDistance);
+            int newDistance = currentDistance + distanceMatrix[lastIndex][i]; //add the distance
+            FindShortestPath(currentRoute, visited, level + 1, i, newDistance); //call this function to find following locations
 
-            visited[i] = false;
+            visited[i] = false; //reset the bool for other nodes
         }
     }
 }
